@@ -1,7 +1,10 @@
 module capteurUS_HCSR04(fn){
 	$fn=fn;
 	difference(){
-		color("Royalblue")cube([45,20,1.5]);
+		 union(){
+		  color("Royalblue")cube([45,20,1.5]);
+		  color("Royalblue")translate([0,(20-12)/2,-1.8])cube([45,12,1.8]);
+		 }
 		color("Royalblue")translate([0.85,0.85,-0.1])cylinder(d=1.5,h=1.7);
 		color("Royalblue")translate([45-0.85,0.85,-0.1])cylinder(d=1.5,h=1.7);
 		color("Royalblue")translate([0.85,20-0.85,-0.1])cylinder(d=1.5,h=1.7);
