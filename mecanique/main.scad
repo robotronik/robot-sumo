@@ -11,6 +11,7 @@ use <capteurUS_HCSR04.scad>;
 use <capteur_CNY70.scad>;
 use <driver_L293D.scad>;
 use <breadboard.scad>;
+use <Support_capteurCNY70.scad>
 
 // utilisation de fichier STL pour optimiser les performances
 
@@ -234,7 +235,7 @@ module fixations_capteurUS_V2(){
 }
 
 module robot_sumo(){	
-	translate([-4.5,25,16.2])power_train();
+	translate([-4.5,25,16.2])power_train(50);
 	translate([0.5,5,0]){
 		//color("red")fixation_moteur_V2();
 		translate([26,6.3,-1])cylinder(d=3,h=10);
@@ -256,9 +257,9 @@ module robot_sumo(){
 			translate([63.86,2.5,-1])cylinder(d=3,h=10);
 		}
 	}
-	translate([50,87,-1])rotate([0,0,180]){
-		//rotate([0,0,-30])bille_jockey(50);
-		translate([0,0,0])rotate([0,0,0])cylinder(d=20,h=20);
+	translate([50,87,-5])rotate([0,0,180]){
+		rotate([0,0,-30])bille_jockey(50);
+		//translate([0,0,0])rotate([0,0,0])cylinder(d=20,h=20);
 		for(i=[0:2]){translate([12.6*cos(i*120-30),12.6*sin(i*120-30),-3])cylinder(d=3,h=10);}
 	}
 	translate([(100-45)/2,-7,10]){
@@ -270,6 +271,7 @@ module robot_sumo(){
 	translate([72.15,4.6,-3])cylinder(d=2.5,h=10);
 	//color("red")fixation_moteurs_V1();
 	//translate([47.5,2.5,5])fixation_breadboard_2();
+	translate([0,-10,0])rotate([180,0,90])support_CNY70(9.5,15);
 }
 
 module base(){
@@ -296,5 +298,8 @@ translate([0,20,0])base();
 }
 
 //-->
-translate([0,20,0])robot_sumo();
-/*projection(cut = false)*/base_2();
+rotate([-1,0,0])
+	translate([0,20,0])robot_sumo();
+/*projection(cut = false)*//*rotate([-1,0,0])*/base_2();
+
+%translate([-20,0,-18])cube([150,150,1]);
