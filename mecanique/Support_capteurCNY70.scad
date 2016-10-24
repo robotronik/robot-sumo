@@ -28,7 +28,7 @@ module fix_CNY70(L){
 		translate([(L-5)/2,(L-5)/2,-.1])cube([5,5,0.7]);
 	}
 }
-mirror([0,0,1])support_CNY70(9.5,8);
-mirror([0,0,1])translate([1.25,1.25,3])CNY70();
-translate([0,0,-2.8])fix_CNY70(9.5);
+mirror([0,0,1])support_CNY70(9.5,10);
+//mirror([0,0,1])translate([1.25,1.25,3])CNY70();
+//translate([0,0,-2.8])fix_CNY70(8.7);
 // hauteur base : 19.5mm avant et 22mm à l'arrière(
