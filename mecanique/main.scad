@@ -12,6 +12,8 @@ use <capteur_CNY70.scad>;
 use <driver_L293D.scad>;
 use <breadboard.scad>;
 use <Support_capteurCNY70.scad>
+use <support_capteur_US_v2.scad>
+use <support_moteur_v2.scad>
 
 // utilisation de fichier STL pour optimiser les performances
 
@@ -88,7 +90,7 @@ module fixations_capteurUS(){
 	}
 }
 
-module fixation_moteur_1(){
+/*module fixation_moteur_1(){
 	difference(){
 		union(){
 			rotate([90,0,90])cube([10,25.5,2]);
@@ -179,7 +181,7 @@ module fixation_moteur_1_V2(){
 	translate([-29.5+3.5,-26.5+3+13.5+11.5,-10])cylinder(d=3,h=25);
 	}
 
-}
+}*/
 
 module fixation_breadboard_1(){
 	translate([0,0,5])cube([2,8,50]);
@@ -237,7 +239,7 @@ module fixations_capteurUS_V2(){
 module robot_sumo(){	
 	translate([-4.5,25,16.2])power_train(50);
 	translate([0.5,5,0]){
-		//color("red")fixation_moteur_V2();
+		color("red")fixation_moteur_V2();
 		translate([26,6.3,-1])cylinder(d=3,h=10);
 		translate([42,6.3,-1])cylinder(d=3,h=10);
 		translate([57,6.3,-1])cylinder(d=3,h=10);
@@ -246,11 +248,11 @@ module robot_sumo(){
 		translate([49.4,25.8,-1])cylinder(d=3,h=10);
 	translate([49.4,37.3,-1])cylinder(d=3,h=10);
 	}
-	translate([40,60,45])rotate([0,0,-90])nano(5);
+	//translate([40,70,60])rotate([0,0,-90])nano(20);
 	//translate([0,0,0])rotate([180,0,0])CNY70();
 	//translate([0,0,0])L293D();
 	translate([0,10,0]){
-		translate([30,11,55])breadboard(10);
+		//translate([30,11,55])breadboard(10);
 		translate([20,65.3,0.5]){
 			fixation_breadboard_1();
 			translate([-3.8,2.5,-1])cylinder(d=3,h=10);
@@ -264,15 +266,19 @@ module robot_sumo(){
 	}
 	translate([(100-45)/2,-7,10]){
 		//rotate([0,0,180])fixations_capteurUS();
-		rotate([0,0,180])fixations_capteurUS_V2();
+		//rotate([0,0,180])fixations_capteurUS_V2();
+	     //translate([0,4,0])rotate([90,0,0])backplate(49,23,2);
+	     translate([0,-5,0])rotate([90,0,0])frontplate(49,23,2);
 		rotate([90,0,0])capteurUS_HCSR04(30);
 	}
 	translate([27.8,4.6,-1])cylinder(d=2.5,h=10);
 	translate([72.15,4.6,-3])cylinder(d=2.5,h=10);
 	//color("red")fixation_moteurs_V1();
 	//translate([47.5,2.5,5])fixation_breadboard_2();
-	translate([0,-10,0])rotate([180,0,90])support_CNY70(9.5,15);
+	//translate([0,-10,0])rotate([180,0,90])support_CNY70(9.5,15);
+	//translate([0,0,50])cube([70,100,5]);
 }
+
 
 module base(){
 	difference(){
@@ -302,4 +308,4 @@ rotate([-1,0,0])
 	translate([0,20,0])robot_sumo();
 /*projection(cut = false)*//*rotate([-1,0,0])*/base_2();
 
-%translate([-20,0,-18])cube([150,150,1]);
+//%translate([-20,0,-18])cube([150,150,1]);
