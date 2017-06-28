@@ -44,6 +44,42 @@ module backplate(L,H,e){
      }
 }
 
+module frontplate(L,H,e){
+     difference(){
+	  
+	       union(){
+	       translate([-2,-(H-21),0])cube([L,H,e]);
+	       translate([0.85,0.85,-3.5])cylinder(d=diam_vis+2,h=e+2);
+	       translate([45-0.85,0.85,-3.5])cylinder(d=diam_vis+2,h=e+2);
+	       translate([0.85,20-0.85,-3.5])cylinder(d=diam_vis+2,h=e+2);
+	       translate([45-0.85,20-0.85,-3.5])cylinder(d=diam_vis+2,h=e+2);
+	  }
 
-//capteurUS_HCSR04(100);
-translate([0,0,-4])backplate();
+	  // screw hole
+	  translate([0.85,0.85,-0.1-3.5])cylinder(d=diam_vis,h=e+2.2+3);
+	  translate([45-0.85,0.85,-0.1-3.5])cylinder(d=diam_vis,h=e+2.2+3);
+	  translate([0.85,20-0.85,-0.1-3.5])cylinder(d=diam_vis,h=e+2.2+3);
+	  translate([45-0.85,20-0.85,-0.1-3.5])cylinder(d=diam_vis,h=e+2.2+3);
+	  
+	      translate([9.5,10,-0.1]) cylinder(d=18,h=e+0.2);
+	      translate([45-9.5,10,-0.1]) cylinder(d=18,h=e+0.2);
+	  }
+
+     // fixation backplate
+
+     translate([-2,-(H-18),0])cube([L,3,e]);
+     difference(){
+	  union(){
+	       translate([-2,-(H-18),-19.5])cube([5,e,19.5]); // strong enough given the thickness and length ??
+	       translate([-7+L,-(H-18),-19.5])cube([5,e,19.5]);
+	  }
+	  translate([0.35,0,-7.5-9])rotate([90,0,0])cylinder(d=2.5,h=10);
+	  translate([-4.35+L,0,-7.5-9])rotate([90,0,0])cylinder(d=2.5,h=10);
+	  
+     }
+     
+}
+
+capteurUS_HCSR04(100);
+//translate([0,0,-4])backplate(49,23,2);
+translate([0,0,5])frontplate(49,23,2);
