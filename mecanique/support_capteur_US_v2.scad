@@ -81,11 +81,11 @@ module frontplate(L,H,e){
      
      difference(){
 	  union(){
-	       translate([-2,-(H-18),-19.5])cube([5,e,19.5]); // strong enough given the thickness and length ??
-	       translate([-7+L,-(H-18),-19.5])cube([5,e,19.5]);
+	       translate([-2,-(H-18),-15.5])cube([5,e,15.5]); // strong enough given the thickness and length ??
+	       translate([-7+L,-(H-18),-15.5])cube([5,e,15.5]);
 	  }
-	  translate([0.35,0,-7.5-9])rotate([90,0,0])cylinder(d=2.5,h=10);
-	  translate([-4.35+L,0,-7.5-9])rotate([90,0,0])cylinder(d=2.5,h=10);
+	  translate([0.35,0,-7.5-5])rotate([90,0,0])cylinder(d=2.5,h=10);
+	  translate([-4.35+L,0,-7.5-5])rotate([90,0,0])cylinder(d=2.5,h=10);
 	  
      }
      

@@ -11,7 +11,7 @@ translate([39, 0, 0]) union(){
 }
 
 translate([70, 0, 0]) mirror([1, 0, 0]) union(){
-    translate([-27.5, 0, 0]) rotate([0, -90, 0]) roue(fn);
+    //translate([-27.5, 0, 0]) rotate([0, -90, 0]) roue(fn);
 
     rotate([180,0,0])moteur(fn);
 }
@@ -23,7 +23,7 @@ module equerre_fixation_moteur(lc1,lc2,L,e,diam_vis){
 	 // e = epaisseur
 	difference(){
 		cube([lc1,L,e]);
-		translate([11.2,L/2,-2])cylinder(d=diam_vis,h=7);	
+		translate([13.2,L/2,-2])cylinder(d=diam_vis,h=7);	
 	}
 	difference() {
 		rotate([0,90,0])cube([lc2,L,e]);
@@ -40,12 +40,12 @@ module equerre_fixation_moteur(lc1,lc2,L,e,diam_vis){
 
 module fixation_moteur_V2(){
 	translate([30,8.8,3])union(){
-		translate([8,-5,0])rotate([0,-90,0])equerre_fixation_moteur(15,7,5,2,3);
-		rotate([0,-90,180])equerre_fixation_moteur(15,7,5,2,3);
+		translate([8,-5,0])rotate([0,-90,0])equerre_fixation_moteur(16,7,5,2,3);
+		rotate([0,-90,180])equerre_fixation_moteur(16,7,5,2,3);
 	}
 	translate([61,8.8,3])union(){
-		translate([8,-5,0])rotate([0,-90,0])equerre_fixation_moteur(15,7,5,2,3);
-		rotate([0,-90,180])equerre_fixation_moteur(15,7,5,2,3);
+		translate([8,-5,0])rotate([0,-90,0])equerre_fixation_moteur(16,7,5,2,3);
+		rotate([0,-90,180])equerre_fixation_moteur(16,7,5,2,3);
 	}
 	translate([75.4,35.8,5])fixation_moteur_1_V2(5);
 }
@@ -91,7 +91,7 @@ module fixation_moteur_1_V2(e){
 
 }
 
-	//translate([-4.5,25,16.2])power_train(50);
+	translate([-4.5,25,16.2])power_train(50);
 
 
 //fixation_moteur_1_V2();
