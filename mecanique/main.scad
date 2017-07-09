@@ -14,8 +14,11 @@ use <breadboard.scad>;
 use <Support_capteurCNY70.scad>
 use <support_capteur_US_v2.scad>
 use <support_moteur_v2.scad>
+use <PCB_hole_footprint.scad>
 use <support_capteur_CNY70_v2.scad>
 use <wheel_spacer.scad>
+use <support_batterie.scad>
+use <support_PCB.scad>
 
 // utilisation de fichier STL pour optimiser les performances
 
@@ -54,7 +57,7 @@ module power_train(fn){
      }
 
      translate([70, 0, 0]) mirror([1, 0, 0]) union(){
-	   translate([-30.5, 0, 0]) rotate([0, -90, 0]) roue(fn);
+	   //translate([-30.5, 0, 0]) rotate([0, -90, 0]) roue(fn);
 
 	  rotate([180,0,0])moteur(fn);
 	  translate([-9, 0, 0])wheel_spacer();
@@ -191,10 +194,10 @@ module fixation_breadboard_1(){
      translate([0,0,5])cube([2,8,50]);
      difference(){
 	  translate([0,0,53])cube([60,8,2]);
-	  translate([12.2,2.5,37.5])rotate([0,0,0])cylinder(d=2,h=3);
-	  translate([47.8,2.5,37.5])rotate([0,0,0])cylinder(d=2,h=3);
+	  translate([12.2,2.5,37.5])rotate([0,0,0])cylinder(d=3,h=3);
+	  translate([47.8,2.5,37.5])rotate([0,0,0])cylinder(d=3,h=3);
 	  translate([47.8,3.5,52.5])rotate([0,0,0])cylinder(d=3,h=10);
-	  translate([12.1,3.5,52.5])rotate([0,0,0])cylinder(d=3,h=10);
+	  translate([12.1,3.5,52.5])rotate([0,0,0])#cylinder(d=3,h=10);
      }
      translate([58,0,5])cube([2,8,50]);
      translate([2,0,5+1.5])rotate([180,0,180])equerre_fixation(9,10,8,2,3);
@@ -256,8 +259,8 @@ module robot_sumo(){
      //translate([0,0,0])rotate([180,0,0])CNY70();
      translate([0,10,0]){
 	  //translate([30,11,55])breadboard(10);
-	  translate([20,65.3,0.5]){
-	       fixation_breadboard_1();
+	  translate([20,80.3,0.5]){
+	       //fixation_breadboard_1();
 	       /*translate([-3.8,2.5,-1])cylinder(d=3,h=10);
 	       translate([63.86,2.5,-1])cylinder(d=3,h=10);*/
 	  }
@@ -272,14 +275,29 @@ module robot_sumo(){
 	  //rotate([0,0,180])fixations_capteurUS_V2();
 	  //translate([0,4,0])rotate([90,0,0])backplate(49,23,2);
 	  translate([0,-1,0])rotate([90,0,0])frontplate(49,23,2);
-	  translate([0,4,0])rotate([90,0,0])capteurUS_HCSR04(30);
+	  //translate([0,4,0])rotate([90,0,0])capteurUS_HCSR04(30);
      }
      /*translate([27.8,4.6,-1])cylinder(d=2.5,h=10);
      translate([72.15,4.6,-3])cylinder(d=2.5,h=10);*/
      //color("red")fixation_moteurs_V1();
      //translate([47.5,2.5,5])fixation_breadboard_2();
-     translate([20,-18,-13])rotate([0,0,-6.5])sensor_and_support();
-     //translate([0,0,50])cube([70,100,5]);
+
+     // color sensors
+     // front
+     translate([25,-18,-5])rotate([0,0,-6])sensor_and_support();
+     translate([100-25,-18,-5])mirror([1,0,0])rotate([0,0,-6])sensor_and_support();
+
+     // back
+     translate([20,105,-5])rotate([0,0,180+8.5])sensor_and_support();
+     translate([80,105,-5])mirror([1,0,0])rotate([0,0,180+8.5])sensor_and_support();
+    
+
+     translate([15,95,60])rotate([0,180,-180])pcb_hole_footprint(3);
+     translate([15,95,57])rotate([180,0,0])pcb_support(52);
+     translate([50-19.9/2,7.8,5])PCB_support_pillar(49,5,3);
+
+     //translate([(100+26.5)/2,50,40])rotate([0,0,90])battery();
+     
 }
 
 
@@ -324,6 +342,28 @@ module base(){
 	  /* US sensor fixation holes */
 	       translate([27.8,4.6,-1])cylinder(d=2.5,h=10);
      translate([72.15,4.6,-3])cylinder(d=2.5,h=10);
+
+     /* color sensors fixation holes */
+     // front
+     translate([23,-13,-2])cylinder(d=3,h=10);
+     translate([37.5,-14.5,-2])cylinder(d=3,h=10);
+	  
+     translate([100-23,-13,-2])cylinder(d=3,h=10);
+     translate([100-37.5,-14.5,-2])cylinder(d=3,h=10);
+     // wire
+     translate([30.25,-14,-2])cylinder(d=6,h=10);
+translate([100-30.25,-14,-2])cylinder(d=6,h=10);
+
+     // back
+     translate([23.2,100.65,-2])cylinder(d=3,h=10);
+     translate([8.8,98.55,-2])cylinder(d=3,h=10);
+     
+     translate([100-23.2,100.65,-2])cylinder(d=3,h=10);
+     translate([100-8.8,98.55,-2])cylinder(d=3,h=10);
+     //wire
+     translate([16,99.6,-2])cylinder(d=6,h=10);
+     translate([100-16,99.6,-2])cylinder(d=6,h=10);
+     
 	  
      }
 	
@@ -336,6 +376,6 @@ module base_2(){
 //-->
 rotate([0,0,0])
 translate([0,20,0])robot_sumo();
-/*projection(cut = false)*//*rotate([-1,0,0])*/base_2();
+/*projection(cut = false)*//*rotate([-1,0,0])*/%base_2();
 
-%translate([-20,0,-13])cube([150,150,1]);
+//%translate([-20,0,-13])cube([150,150,1]);

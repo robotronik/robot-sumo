@@ -49,4 +49,3 @@ color("blue")translate([0.45,0.5,0.5])fix_CNY70(8.7);
 }
 
 sensor_and_support();
-// hauteur base : 19.5mm avant et 22mm à l'arrière(
