@@ -296,7 +296,8 @@ module robot_sumo(){
      translate([15,95,57])rotate([180,0,0])pcb_support(52);
      translate([50-19.9/2,7.8,5])PCB_support_pillar(49,5,3);
 
-     //translate([(100+26.5)/2,50,40])rotate([0,0,90])battery();
+     color("white")translate([(100+26.5)/2,20,39])rotate([0,0,90])battery();
+     color("green")translate([(100-56)/2,31.5-25.5,37])rotate([0,0,0])support_batterie();
      
 }
 
@@ -325,9 +326,9 @@ module base(){
 
 	  /* PCB fixation holes */
 	  translate([0,10,0]){
-	       translate([20,65.3,0.5]){
-		    translate([-3.8,2.5,-1])cylinder(d=3,h=10);
-		    translate([63.86,2.5,-1])cylinder(d=3,h=10);
+	       translate([20,71.15,0.5]){
+		    translate([-2,0,-1])cylinder(d=3,h=10);
+		    translate([62,0,-1])cylinder(d=3,h=10);
 	       }
 	  }
 
