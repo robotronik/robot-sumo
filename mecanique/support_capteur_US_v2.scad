@@ -45,6 +45,14 @@ module backplate(L,H,e){
      }
 }
 
+module cable_management(L,l,h,e){
+
+     cube([L,l,e]);
+     cube([2,h,e]);
+     translate([0,h,0])cube([L-2,e,e]);
+
+}
+
 module frontplate(L,H,e){
      difference(){
 	  
@@ -81,8 +89,10 @@ module frontplate(L,H,e){
      
      difference(){
 	  union(){
-	       translate([-2,-(H-18),-15.5])cube([5,e,15.5]); // strong enough given the thickness and length ??
+	       translate([-2,-(H-18),-15.5])cube([5,e,15.5]);
 	       translate([-7+L,-(H-18),-15.5])cube([5,e,15.5]);
+	       translate([-8,5,0])cable_management(6,2,7,2);
+	       translate([L+4.5,5,0])mirror([1,0,0])cable_management(6,2,7,2);
 	  }
 	  translate([0.35,0,-7.5-5])rotate([90,0,0])cylinder(d=2.5,h=10);
 	  translate([-4.35+L,0,-7.5-5])rotate([90,0,0])cylinder(d=2.5,h=10);
@@ -94,3 +104,4 @@ module frontplate(L,H,e){
 capteurUS_HCSR04(100);
 //translate([0,0,-4])backplate(49,23,2);
 translate([0,0,5])frontplate(48,23,2);
+

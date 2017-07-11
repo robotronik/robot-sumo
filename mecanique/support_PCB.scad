@@ -75,11 +75,25 @@ module pcb_support(h){
 	  translate([6,0,18])cube([5,2,2]);
 	  translate([59,0,18])cube([5,2,2]);
 	  
+	  translate([-5,0,5])cable_management(6,2,7,2);
+	  translate([-5,0,40])cable_management(6,2,7,2);
+
+	  translate([70+6,0,5])mirror([1,0,0])cable_management(6,2,7,2);
+	  translate([70+6,0,40])mirror([1,0,0])cable_management(6,2,7,2);
+	  
 	  
      }
      translate([1.5+1.67,3,-0.1])cylinder(d=screw_diam,h=20.1);
      translate([70-(1.5+1.67),3,-0.1])cylinder(d=screw_diam,h=20.1);
      }
+}
+
+module cable_management(L,l,h,e){
+
+     cube([L,l,e]);
+     cube([2,h,e]);
+     translate([0,h,0])cube([L-2,e,e]);
+
 }
 
 

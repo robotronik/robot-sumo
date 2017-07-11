@@ -57,7 +57,7 @@ module power_train(fn){
      }
 
      translate([70, 0, 0]) mirror([1, 0, 0]) union(){
-	   //translate([-30.5, 0, 0]) rotate([0, -90, 0]) roue(fn);
+	   translate([-30.5, 0, 0]) rotate([0, -90, 0]) roue(fn);
 
 	  rotate([180,0,0])moteur(fn);
 	  translate([-9, 0, 0])wheel_spacer();
@@ -275,7 +275,7 @@ module robot_sumo(){
 	  //rotate([0,0,180])fixations_capteurUS_V2();
 	  //translate([0,4,0])rotate([90,0,0])backplate(49,23,2);
 	  translate([0,-1,0])rotate([90,0,0])frontplate(49,23,2);
-	  //translate([0,4,0])rotate([90,0,0])capteurUS_HCSR04(30);
+	  translate([0,4,0])rotate([90,0,0])capteurUS_HCSR04(30);
      }
      /*translate([27.8,4.6,-1])cylinder(d=2.5,h=10);
      translate([72.15,4.6,-3])cylinder(d=2.5,h=10);*/
