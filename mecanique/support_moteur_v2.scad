@@ -2,10 +2,11 @@ $fn=100;
 use <moteur.scad>;
 
 
+
 module power_train(fn){
 
 translate([39, 0, 0]) union(){
-    translate([-27.5, 0, 0]) rotate([0, -90, 0]) roue(fn);
+    //translate([-27.5, 0, 0]) rotate([0, -90, 0]) roue(fn);
 
     rotate([180,0,0])moteur(fn);
 }
@@ -61,7 +62,7 @@ module fixation_moteur_1_V2(e){
 			translate([-0.8,-25,0])cube([1.5,35,25]);
 		}
 		translate([-22.6,-25.1,12.1])minkowski(){
-			cube([1.1,20,17]);
+			cube([1.1,20,13]);
 			rotate([0,90,0])cylinder(d=4,h=1.1);
 		}
 		translate([-31.6,-25.1,12.1])minkowski(){
