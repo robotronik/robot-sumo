@@ -21,4 +21,6 @@ module support_batterie(){
 
 }
 
-battery();
+//battery();
+
+support_batterie();

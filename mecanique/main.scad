@@ -9,7 +9,7 @@ use <nano.scad>;
 use <roue_omni.scad>;
 use <capteurUS_HCSR04.scad>;
 use <capteur_CNY70.scad>;
-use <driver_L293D.scad>;
+//use <driver_L293D.scad>;
 use <breadboard.scad>;
 use <Support_capteurCNY70.scad>
 use <support_capteur_US_v2.scad>
@@ -19,6 +19,10 @@ use <support_capteur_CNY70_v2.scad>
 use <wheel_spacer.scad>
 use <support_batterie.scad>
 use <support_PCB.scad>
+use <pololu_3-8inch_ball_caster.scad>
+use <support_pololu_3-8inch_ball_caster.scad>
+
+//translate([63,47.5,-5])mirror([0,1,0])import ("freecad_model/robot_sumo_base.stl");
 
 // utilisation de fichier STL pour optimiser les performances
 
@@ -266,7 +270,9 @@ module robot_sumo(){
 	  }
      }
      translate([50,87,-1])rotate([0,0,180]){
-	  rotate([0,0,-30])bille_jockey(50);
+	  //rotate([0,0,-30])bille_jockey(50);
+	  translate([-9.5,-6.1,-2])mirror([0,0,1])pololu_951_ball_caster();
+	  translate([0,0,6+2.5])mirror([0,0,1])support_pololu_951_ball_caster(2.5,3);
 	  //translate([0,0,0])rotate([0,0,0])cylinder(d=20,h=20);
 	  //for(i=[0:2]){translate([12.6*cos(i*120-30),12.6*sin(i*120-30),-3])cylinder(d=3,h=10);}
      }
@@ -305,12 +311,12 @@ module robot_sumo(){
 module base(){
      difference(){
 	  union(){
-	       translate([0,-10,0])cube([100,110,5]);
-	       translate([50,-10,0])resize(newsize=[0,20,0])cylinder(d=100,h=5, $fn=100);
-	       translate([50,100,0])resize(newsize=[0,15,0])cylinder(d=100,h=5,$fn=100);
+	       translate([0,-10,-1])cube([100,110,6]);
+	       translate([50,-10,-1])resize(newsize=[0,20,0])cylinder(d=100,h=6, $fn=100);
+	       translate([50,100,-1])resize(newsize=[0,15,0])cylinder(d=100,h=6,$fn=100);
 	  }
-	  translate([-0.1,-10,-0.1])cube([23,73,6]);
-	  translate([-0.1+77.2,-10,-0.1])cube([23,73,6]);
+	  translate([-0.1,-10,-1.1])cube([23,73,6.2]);
+	  translate([-0.1+77.2,-10,-1.1])cube([23,73,6.2]);
 	  //translate([0,0,0.1])robot_sumo();
 
 	  /* motor fixation holes */
@@ -334,14 +340,14 @@ module base(){
 
 	  /* ball caster fixation holes */
 	  translate([50,87,-1])rotate([0,0,180]){
-	       translate([0,0,0])rotate([0,0,0])cylinder(d=20,h=20, $fn=50);
+	       translate([0,0,-1])rotate([0,0,0])cylinder(d=20,h=20, $fn=50);
 	       for(i=[0:2]){translate([12.6*cos(i*120-30),12.6*sin(i*120-30),-3])cylinder(d=3,h=10);
 	       }
 	       
 	  }
 
 	  /* US sensor fixation holes */
-	       translate([27.8,4.6,-1])cylinder(d=2.5,h=10);
+	       translate([27.8,4.6,-3])cylinder(d=2.5,h=10);
      translate([72.15,4.6,-3])cylinder(d=2.5,h=10);
 
      /* color sensors fixation holes */
@@ -375,8 +381,7 @@ module base_2(){
 }
 
 //-->
-rotate([0,0,0])
-translate([0,20,0])robot_sumo();
-/*projection(cut = false)*//*rotate([-1,0,0])*/%base_2();
+rotate([0,0,0])translate([0,20,0])robot_sumo();
+/*projection(cut = false)*//*rotate([-1,0,0])*/base_2();
 
-//%translate([-20,0,-13])cube([150,150,1]);
+%translate([-20,0,-14])cube([150,150,1]);

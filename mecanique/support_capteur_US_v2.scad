@@ -2,6 +2,8 @@ $fn=100;
 use <capteurUS_HCSR04.scad>;
 use <BezierScad/BezierScad.scad>
 
+%translate([7.45,1,5])mirror([0,0,0])import ("freecad_model/robot_sumo_US_sensor_holder.stl");
+
 //new fix 2017
 
 diam_vis=1.5;
@@ -62,17 +64,17 @@ module frontplate(L,H,e){
 	       cylinder(d=1.5,h=0.001);
 	       }
 	       translate([0.85,0.85,-3.5])cylinder(d=diam_vis+2,h=e+2);
-	       translate([45-0.85,0.85,-3.5])cylinder(d=diam_vis+2,h=e+2);
+	       translate([45-0.85-1,0.85,-3.5])cylinder(d=diam_vis+2,h=e+2);
 	       translate([0.85,20-0.85,-3.5])cylinder(d=diam_vis+2,h=e+2);
-	       translate([45-0.85,20-0.85,-3.5])cylinder(d=diam_vis+2,h=e+2);
+	       translate([45-0.85-1,20-0.85,-3.5])cylinder(d=diam_vis+2,h=e+2);
 	       translate([-2,-(H-18),0])cube([L,3,e]);
 	  }
 
 	  // screw hole
 	  translate([0.85,0.85,-0.1-3.5])cylinder(d=diam_vis,h=e+2.2+3);
-	  translate([45-0.85,0.85,-0.1-3.5])cylinder(d=diam_vis,h=e+2.2+3);
+	  translate([45-0.85-1,0.85,-0.1-3.5])cylinder(d=diam_vis,h=e+2.2+3);
 	  translate([0.85,20-0.85,-0.1-3.5])cylinder(d=diam_vis,h=e+2.2+3);
-	  translate([45-0.85,20-0.85,-0.1-3.5])cylinder(d=diam_vis,h=e+2.2+3);
+	  translate([45-0.85-1,20-0.85,-0.1-3.5])cylinder(d=diam_vis,h=e+2.2+3);
 	  translate([45/2,10,-0.1])rotate([0,0,-90])cylinder(d=7,h=e+0.2,$fn=3); // decoration ^^
 	  
 	  translate([42.5,0,-0.1])rotate([0,0,-90])linear_extrude(height = e+0.2) 
@@ -92,7 +94,7 @@ module frontplate(L,H,e){
 	       translate([-2,-(H-18),-15.5])cube([5,e,15.5]);
 	       translate([-7+L,-(H-18),-15.5])cube([5,e,15.5]);
 	       translate([-8,5,0])cable_management(6,2,7,2);
-	       translate([L+4.5,5,0])mirror([1,0,0])cable_management(6,2,7,2);
+	       translate([L+4,5,0])mirror([1,0,0])cable_management(6,2,7,2);
 	  }
 	  translate([0.35,0,-7.5-5])rotate([90,0,0])cylinder(d=2.5,h=10);
 	  translate([-4.35+L,0,-7.5-5])rotate([90,0,0])cylinder(d=2.5,h=10);
@@ -101,7 +103,8 @@ module frontplate(L,H,e){
      
 }
 
-capteurUS_HCSR04(100);
+//capteurUS_HCSR04(100);
 //translate([0,0,-4])backplate(49,23,2);
 translate([0,0,5])frontplate(48,23,2);
+//#translate([0,0,7])cube([5,5,5]);
 
