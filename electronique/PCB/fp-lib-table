@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name Arduino-nano)(type KiCad)(uri /home/maxime/Bureau/Robotique/Robot_sumo/Arduino-nano.pretty)(options "")(descr ""))
+  (lib (name logo)(type KiCad)(uri /home/maxime/Bureau/Robotique/Robot_sumo/Robot_sumo-2017/logo.petty)(options "")(descr ""))
+)
