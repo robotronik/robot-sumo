@@ -47,9 +47,11 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L LED D1
+L LED-RESCUE-Robot_sumo D1
 U 1 1 5942F4DF
 P 3300 2300
+AR Path="/5942F4DF" Ref="D1"  Part="1" 
+AR Path="/5942F2F4/5942F4DF" Ref="D1"  Part="1" 
 F 0 "D1" H 3300 2400 50  0000 C CNN
 F 1 "LED_red" H 3300 2200 50  0000 C CNN
 F 2 "LEDs:LED_D5.0mm" H 3300 2300 50  0001 C CNN
