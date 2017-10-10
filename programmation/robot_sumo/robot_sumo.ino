@@ -14,6 +14,10 @@ IR_Sensor right_front_ir;
 IR_Sensor left_rear_ir;
 IR_Sensor right_rear_ir;
 
+/*
+ * Initialise le robot. Cette fonction est exécutée une seule fois
+ * lorsque le programme démarre.
+ */
 void setup(){
   //LED système
   pinMode(LED, OUTPUT);
@@ -32,9 +36,11 @@ void setup(){
   init_ir(&left_rear_ir, IR_3, 512, 100);
   init_ir(&right_rear_ir, IR_4, 512, 100);
 
+  //Initalisation du générateur de nombres pseudo-aléatoires
   randomSeed(analogRead(0));
   delayMicroseconds(100);
 
+  #if TEST_MODE == 1
   //Tests
   Serial.begin(9600);
   Serial.println("Test moteur gauche");
@@ -51,6 +57,7 @@ void setup(){
   test_ir_sensor(&left_rear_ir);
   Serial.println("Test IR arrière droit");
   test_ir_sensor(&right_rear_ir);
+  #endif
 }
 
 void loop(){
