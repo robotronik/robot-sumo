@@ -24,23 +24,23 @@ void setup(){
   digitalWrite(LED, LOW);
   
   //Initialisations moteurs
-  init_motor(&left_motor, PWM_1, DIR_1, 50, false);
-  init_motor(&left_motor, PWM_2, DIR_2, 50, false);
+  init_motor(&left_motor, PWM_2, DIR_2, 20, true);
+  init_motor(&right_motor, PWM_1, DIR_1, 20, true);
 
   //Initialisation ultrasons
   init_us(&dist_sensor, TRIG, ECHO, 50);
 
   //Initialisations infrarouge
-  init_ir(&left_front_ir, IR_1, 512, 100);
-  init_ir(&right_front_ir, IR_2, 512, 100);
-  init_ir(&left_rear_ir, IR_3, 512, 100);
-  init_ir(&right_rear_ir, IR_4, 512, 100);
+  init_ir(&left_front_ir, IR_2, 550, 10);
+  init_ir(&right_front_ir, IR_1, 550, 10);
+  init_ir(&left_rear_ir, IR_3, 550, 10);
+  init_ir(&right_rear_ir, IR_4, 550, 10);
 
   //Initalisation du générateur de nombres pseudo-aléatoires
   randomSeed(analogRead(0));
   delayMicroseconds(100);
 
-  #if TEST_MODE == 1
+  #if TEST == 1
   //Tests
   Serial.begin(9600);
   Serial.println("Test moteur gauche");
@@ -50,13 +50,14 @@ void setup(){
   Serial.println("Test capteur ultrasons");
   test_us_sensor(&dist_sensor);
   Serial.println("Test IR avant gauche");
-  test_ir_sensor(&left_front_ir);
+  test_ir_sensor(&left_rear_ir);
   Serial.println("Test IR avant droit");
   test_ir_sensor(&right_front_ir);
   Serial.println("Test IR arrière gauche");
   test_ir_sensor(&left_rear_ir);
   Serial.println("Test IR arrière droit");
   test_ir_sensor(&right_rear_ir);
+  halt();
   #endif
 }
 
@@ -84,8 +85,8 @@ void loop(){
 	stop_motor(&right_motor);
       }
       else if((edges & LEFT_FRONT) && (edges & RIGHT_FRONT)){
-	set_state(&right_motor, true, 255, BACKWARD);
-	set_state(&left_motor, true, 255, BACKWARD);
+	set_state(&right_motor, true, MEDIUM_SPEED, BACKWARD);
+	set_state(&left_motor, true, MEDIUM_SPEED, BACKWARD);
 	delay(1000);
       }
       else if((edges & LEFT_REAR) && (edges & RIGHT_REAR)){
@@ -93,26 +94,26 @@ void loop(){
       }
       else if(edges & LEFT_FRONT){
 	stop_motor(&right_motor);
-	set_state(&left_motor, true, 255, FORWARD);
+	set_state(&left_motor, true, MEDIUM_SPEED, FORWARD);
 	delay(500);
       }
       else if(edges & RIGHT_FRONT){
 	stop_motor(&left_motor);
-	set_state(&right_motor, true, 255, FORWARD);
+	set_state(&right_motor, true, MEDIUM_SPEED, FORWARD);
 	delay(500);
       }
       else if(edges & LEFT_REAR){
-	set_state(&right_motor, true, 128, FORWARD);
-	set_state(&left_motor, true, 255, BACKWARD);
+	set_state(&right_motor, true, MEDIUM_SPEED/2, FORWARD);
+	set_state(&left_motor, true, MEDIUM_SPEED, BACKWARD);
       }
       else if(edges & RIGHT_REAR){
-	set_state(&right_motor, true, 255, BACKWARD);
-	set_state(&left_motor, true, 128, FORWARD);
+	set_state(&right_motor, true, MEDIUM_SPEED, BACKWARD);
+	set_state(&left_motor, true, MEDIUM_SPEED/2, FORWARD);
       }
       else{
-	byte speed = constrain((int) right_motor.speed + (random(0,10) - 5), 0, 255);
+	byte speed = constrain((int) right_motor.speed + (random(0,10) - 5), 0, MEDIUM_SPEED);
 	set_state(&right_motor, true, speed, FORWARD);
-	set_state(&left_motor, true, 255-speed, FORWARD);
+	set_state(&left_motor, true, MEDIUM_SPEED-speed, FORWARD);
       }
     }
     delay(10);
@@ -126,10 +127,10 @@ void blow_this_fucker_down(){
 
 byte get_edges(){
   byte edges = 0;
-  edges |= (get_color(&left_front_ir) == BLACK)?LEFT_FRONT:0;
-  edges |= (get_color(&right_front_ir) == BLACK)?RIGHT_FRONT:0;
-  edges |= (get_color(&left_rear_ir) == BLACK)?LEFT_REAR:0;
-  edges |= (get_color(&right_rear_ir) == BLACK)?RIGHT_REAR:0;  
+  edges |= (get_color(&left_front_ir) == WHITE)?LEFT_FRONT:0;
+  edges |= (get_color(&right_front_ir) == WHITE)?RIGHT_FRONT:0;
+  edges |= (get_color(&left_rear_ir) == WHITE)?LEFT_REAR:0;
+  edges |= (get_color(&right_rear_ir) == WHITE)?RIGHT_REAR:0;  
   return edges;
 }
 
@@ -157,6 +158,7 @@ void test_motor(Motor *m){
     start_motor(m);
     delay(100);
   }
+  stop_motor(m);
 }
 
 void test_ir_sensor(IR_Sensor *s){

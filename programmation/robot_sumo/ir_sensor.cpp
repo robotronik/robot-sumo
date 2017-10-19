@@ -26,4 +26,7 @@ Color get_color(IR_Sensor *s){
     s->last_color = COLOR_DOWN;
     return COLOR_DOWN;
   }
+  else{
+    return s->last_color;
+  }
 }

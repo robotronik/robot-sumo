@@ -7,7 +7,8 @@
 #include "./ir_sensor.h"
 #include "./halt.h"
 
-#define TEST_MODE 1 //Effectue les tests au démarrage si TEST_MODE == 1
+#define TEST 0 //Effectue les tests au démarrage si TEST_MODE == 1
+#define MEDIUM_SPEED 50
 
 //Constantes pour la détection infrarouge
 #define LEFT_FRONT 0b1000
