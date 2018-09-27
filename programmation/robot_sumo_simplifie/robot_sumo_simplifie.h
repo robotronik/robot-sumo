@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include <avr/sleep.h>
 
-#define TEST 0 //Effectue les tests au démarrage si TEST_MODE == 1
+#define TEST 1 //Effectue les tests au démarrage si TEST_MODE == 1
 
 /* Pins */
 
@@ -22,10 +22,10 @@
 #define IR_4 A3
 
 //Moteurs
-#define PWM_1 3
-#define DIR_1 2
-#define PWM_2 5
-#define DIR_2 4
+#define PWM_1 5
+#define DIR_1 4
+#define PWM_2 3
+#define DIR_2 2
 
 /* Valeurs */
 
@@ -84,24 +84,9 @@ void drive_motor(byte pwm_pin, byte dir_pin, unsigned int speed, bool dir, bool 
  * de ses variables.
  */
 
-void set_state(byte pwm_pin, byte dir_pin, unsigned int speed, bool dir, bool inverted);
-/*
- * Configure les paramètres du moteur puis appelle drive_motor.
- */
-
 void stop_motor(byte pwm_pin, byte dir_pin);
 /*
  * Stoppe le moteur.
- */
-
-void set_speed(unsigned int speed1, unsigned int speed2);
-/*
- * Configure la vitesse du moteur mais ne l'applique pas.
- */
-
-void set_direction(bool dir1, bool dir2);
-/*
- * Configure la direction du moteur mais ne l'applique pas.
  */
 
 void blow_this_fucker_down();
@@ -112,6 +97,7 @@ void blow_this_fucker_down();
 
 //Tests
 void test_motor(byte pwm_pin, byte dir_pin, unsigned int speed, bool dir, bool inverted);
+void test_motor2(byte pwm_pin, byte dir_pin, unsigned int speed, bool dir, bool inverted);
 void test_ir_sensor(unsigned int sensor_pin);
 void test_us_sensor();
 

@@ -93,7 +93,7 @@ void init_motor(byte pwm_pin, byte dir_pin, unsigned int speed, bool dir, bool i
 
 void drive_motor(byte pwm_pin, byte dir_pin, unsigned int speed, bool dir, bool inverted) {
   byte pwm = map(speed, 0, 255, min_pwm, 255);
-  if((dir && !inverted) || (!dir && inverted)){
+  if(dir){
     analogWrite(pwm_pin, pwm);
     digitalWrite(dir_pin, LOW);
   } else {
@@ -102,53 +102,47 @@ void drive_motor(byte pwm_pin, byte dir_pin, unsigned int speed, bool dir, bool 
   }
 }
 
-void set_state(byte pwm_pin, byte dir_pin, unsigned int speed, bool dir, bool inverted) {
-  drive_motor(pwm_pin, dir_pin, speed, dir, inverted);
-}
-
 void stop_motor(byte pwm_pin, byte dir_pin) {
   digitalWrite(pwm_pin, LOW);
   digitalWrite(dir_pin, LOW);
 }
 
-void set_speed(unsigned int speed1, unsigned int speed2) {
-  speed_1 = speed1;
-  speed_2 = speed2;
-}
-
-void set_direction(bool dir1, bool dir2) {
-  dir_1 = dir1;
-  dir_2 = dir2;
-}
-
-void blow_this_fucker_down(){
+/*void blow_this_fucker_down(){
   set_state(PWM_2, DIR_2, 255, true, inverted_2);
   set_state(PWM_1, DIR_1, 255, true, inverted_1);
-}
+}*/
 
 //Tests
 void test_motor(byte pwm_pin, byte dir_pin, unsigned int speed, bool dir, bool inverted) {
-  set_direction(true, true);
   Serial.println("Avance");
   int i;
   for (i = 0; i < 255; i += 5) {
     Serial.println(i, DEC);
-    set_speed(i, i);
-    set_state(pwm_pin, dir_pin, speed, dir, inverted);
+    drive_motor(pwm_pin, dir_pin, i, true, inverted);
     delay(100);
   }
   Serial.println("Stop");
   stop_motor(pwm_pin, dir_pin);
   delay(1000);
   Serial.println("Recule");
-  set_direction(false, false);
-  set_state(pwm_pin, dir_pin, speed, dir, inverted);
   for (i = 255; i > 0; i -= 5) {
     Serial.println(i, DEC);
-    set_speed(i, i);
-    set_state(pwm_pin, dir_pin, speed, dir, inverted);
+    drive_motor(pwm_pin, dir_pin, i, false, inverted);
     delay(100);
   }
+  stop_motor(pwm_pin, dir_pin);
+}
+
+void test_motor2(byte pwm_pin, byte dir_pin, unsigned int speed, bool dir, bool inverted) {
+  Serial.println("Avance");
+  drive_motor(pwm_pin, dir_pin, 255, true, inverted);
+  delay(5000);
+  Serial.println("Stop");
+  stop_motor(pwm_pin, dir_pin);
+  delay(1000);
+  Serial.println("Recule");
+  drive_motor(pwm_pin, dir_pin, 255, false, inverted);
+  delay(5000);
   stop_motor(pwm_pin, dir_pin);
 }
 
@@ -204,10 +198,14 @@ void setup(){
   #if TEST == 1
   //Tests
   Serial.begin(9600);
+  Serial.println("Test2 moteur gauche");
+  test_motor2(PWM_1, DIR_1, speed_1, dir_1, inverted_1);
+  Serial.println("Test2 moteur droit");
+  test_motor2(PWM_2, DIR_2, speed_2, dir_2, inverted_2);
   Serial.println("Test moteur gauche");
-  test_motor(PWM_2, DIR_2, speed_2, dir_2, inverted_2);
-  Serial.println("Test moteur droit");
   test_motor(PWM_1, DIR_1, speed_1, dir_1, inverted_1);
+  Serial.println("Test moteur droit");
+  test_motor(PWM_2, DIR_2, speed_2, dir_2, inverted_2);
   Serial.println("Test capteur ultrasons");
   test_us_sensor();
   Serial.println("Test IR avant gauche");
@@ -223,7 +221,7 @@ void setup(){
 }
 
 void loop(){
-  //Exemple de stratégie (naïve)
+/*  //Exemple de stratégie (naïve)
   byte edges = 0;
   int dist = 0;
   while(true) {
@@ -278,5 +276,5 @@ void loop(){
       }
     }
     delay(10);
-  }
+  }*/
 }
